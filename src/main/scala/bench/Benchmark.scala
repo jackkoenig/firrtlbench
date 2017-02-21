@@ -14,6 +14,8 @@ import org.openjdk.jmh.annotations._
 @Warmup(iterations = 5)
 @Measurement(iterations = 5)
 @BenchmarkMode(Array(Mode.AverageTime))
+@Fork(1)
+@Threads(1)
 class BenchmarkVerilogCompiler {
 
   // Resource from root project directory
