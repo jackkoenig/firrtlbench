@@ -40,7 +40,7 @@ class BenchmarkVerilogCompiler {
   var rocket: Circuit = _
 
   @Setup
-  def parseRocket: Unit = rocket = parse("regress/rocketchip.DefaultL2Config.fir")
+  def parseRocket: Unit = rocket = parse("regress/freechips.rocketchip.system.DualCoreConfig.fir")
 
   @Benchmark
   def measureRocket: Unit = compile(rocket)

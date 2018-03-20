@@ -1,5 +1,5 @@
 
-scalaVersion := "2.11.7"
+scalaVersion := "2.11.12"
 
 enablePlugins(JmhPlugin)
 
