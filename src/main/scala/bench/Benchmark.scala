@@ -11,9 +11,8 @@ import org.openjdk.jmh.annotations._
 
 @State(Scope.Thread)
 @OutputTimeUnit(TimeUnit.SECONDS)
-@Warmup(iterations = 5)
-@Measurement(iterations = 5)
-@BenchmarkMode(Array(Mode.AverageTime))
+@Measurement(iterations = 10)
+@BenchmarkMode(Array(Mode.SingleShotTime))
 @Fork(1)
 @Threads(1)
 class BenchmarkVerilogCompiler {
