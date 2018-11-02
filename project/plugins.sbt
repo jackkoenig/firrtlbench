@@ -21,3 +21,8 @@ addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.6")
 addSbtPlugin("com.simplytyped" % "sbt-antlr4" % "0.8.1")
 
 addSbtPlugin("pl.project13.scala" % "sbt-jmh" % "0.3.3")
+
+addSbtPlugin("com.github.gseitz" % "sbt-protobuf" % "0.6.3")
+
+libraryDependencies += "com.github.os72" % "protoc-jar" % "3.5.1.1"
+
