@@ -28,7 +28,13 @@ def time():
         return ['/usr/bin/time', '-v']
 
 def extract_max_size(output):
-    m = re.search('(\d+)\s+maximum resident set size', output, re.MULTILINE)
+    regex = ''
+    if platform == 'macos':
+        regex = '(\d+)\s+maximum resident set size'
+    if platform == 'linux':
+        regex = 'Maximum resident set size[^:]*:\s+(\d+)'
+
+    m = re.search(regex, output, re.MULTILINE)
     if m :
         return int(m.group(1))
     else :
@@ -104,6 +110,16 @@ def check_designs(designs):
     for design in designs:
         assert os.path.exists(design), '{} must be an existing file!'.format(design)
 
+# /usr/bin/time -v on Linux returns size in kbytes
+# /usr/bin/time -l on MacOS returns size in Bytes
+def norm_max_set_sizes(sizes):
+    div = None
+    if platform == 'linux':
+        d = 1000.0
+    if platform == 'macos':
+        d = 1000000.0
+    return [s / d for s in sizes]
+
 def main():
     args = parseargs()
     designs = args.designs
@@ -118,7 +134,7 @@ def main():
         for design in designs:
             print('Running {}...'.format(design))
             (sizes, runtimes) = zip(*[run_firrtl(jar, design) for i in range(N)])
-            norm_sizes = [ s / 1000000.0 for s in sizes ]
+            norm_sizes = norm_max_set_sizes(sizes)
             info.append([revision, design, median(norm_sizes), stdev(norm_sizes), median(runtimes), stdev(runtimes)])
             revision = ''
 
