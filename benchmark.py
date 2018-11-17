@@ -50,6 +50,10 @@ def extract_run_time(output):
 def run_firrtl(jar, design):
     cmd = time() + ['java', '-cp', jar, 'firrtl.Driver', '-i', design,'-o','out.v','-X','verilog']
     result = subprocess.run(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    if result.returncode != 0 :
+        print(result.stdout)
+        print(result.stderr)
+        sys.exit(1)
     size = extract_max_size(result.stderr.decode('utf-8'))
     runtime = extract_run_time(result.stdout.decode('utf-8'))
     print('{} B, {} ms'.format(size, runtime))
