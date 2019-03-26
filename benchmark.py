@@ -7,6 +7,7 @@ import sys
 import argparse
 from collections import OrderedDict
 import os
+import numbers
 
 # Currently hardcoded
 firrtl_repo = "firrtl"
@@ -143,7 +144,7 @@ def main():
             revision = ''
 
     for line in info:
-        formated = ['{:0.2f}'.format(elt) if isinstance(elt, float) else elt for elt in line]
+        formated = ['{:0.2f}'.format(elt) if isinstance(elt, numbers.Real) else elt for elt in line]
         print(','.join(formated))
 
 if __name__ == '__main__':
